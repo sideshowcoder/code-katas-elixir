@@ -1,33 +1,38 @@
 Code.require_file "test_helper.exs", __DIR__
 
-defmodule KarateChopTest do
-  use ExUnit.Case
+defmodule KarateChopFacts do
+  use Amrita.Sweet
   import KarateChop, only: [ chop: 2 ]
 
-  test "don't find anything in the empty list" do
-    assert -1 == chop(3, [])
+  fact "don't find anything in an empty list" do
+    chop(1, []) |> equals(-1)
   end
 
-  test "don't find if not present" do
-    assert -1 == chop(3, [1])
+  fact "don't find if not present" do
+    chop(1, [0]) |> equals(-1)
   end
 
-  test "do find as first element" do
-    assert 0 == chop(3, [3])
+  fact "find if first element" do
+    chop(1, [1]) |> equals(0)
   end
 
-  test "do find as last element" do
-    assert 2 == chop(3, [1,2,3])
+  fact "find if last element" do
+    chop(3, [1,2,3]) |> equals(2)
   end
 
-  test "sanity" do
-    assert -1 == chop(0, [1,3,4,5])
-    assert -1 == chop(2, [1,3,4,5])
-    assert -1 == chop(5, [1,2,3,4])
-    assert 0 == chop(1, [1,2,3,4])
-    assert 1 == chop(2, [1,2,3,4])
-    assert 2 == chop(3, [1,2,3,4])
-    assert 3 == chop(4, [1,2,3,4])
-  end
+  facts "sanity" do
+    fact "don't find" do
+      chop(0, [1,3,4,5]) |> equals(-1)
+      chop(2, [1,3,4,5]) |> equals(-1)
+      chop(5, [1,2,3,4]) |> equals(-1)
+    end
 
+    fact "find" do
+      chop(1, [1,2,3,4]) |> equals(0)
+      chop(2, [1,2,3,4]) |> equals(1)
+      chop(3, [1,2,3,4]) |> equals(2)
+      chop(4, [1,2,3,4]) |> equals(3)
+    end
+  end
 end
+
