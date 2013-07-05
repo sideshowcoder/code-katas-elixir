@@ -35,7 +35,22 @@ defmodule MyList do
 
   def caesar(text, offset), do: map(text, cipher(&1, offset))
 
+  defp _flatten([[]|tail], result), do: _flatten(tail, result)
+  defp _flatten([head|tail], result) when is_list(head) do
+    case head do
+      [car|[]] -> _flatten([car|[tail]], result)
+      [car|cdr] -> _flatten([car|[cdr|tail]], result)
+    end
+  end
+  defp _flatten([head|tail], result), do: _flatten(tail, [head|result])
+  defp _flatten([], result), do: Enum.reverse(result)
+
+  def flatten(list), do: _flatten(list, [])
+
 end
+
+IO.puts "#{inspect MyList.flatten([1 ,[2 , 3, [4]], 5, [[[6]]]])}"
+
 
 IO.puts MyList.mapsum([], &1 + &1)
 IO.puts MyList.mapsum([1,2,3], &1 * &1)
