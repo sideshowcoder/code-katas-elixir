@@ -16,7 +16,7 @@ defmodule KarateChop.Mixfile do
   # { :foobar, "0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps do
     [
-      {:amrita, "0.1.2", github: "josephwilk/amrita"}
+      {:amrita, "0.1.3", github: "josephwilk/amrita"}
     ]
   end
 end
